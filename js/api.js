@@ -83,17 +83,21 @@ const displayBox = (plantss) => {
 
         btnDiv.innerHTML=`
 
-        <div class="card bg-base-100 w-96 shadow-sm m-2 p-3">
+        <div class="card bg-base-100  shadow-sm p-3 mt-5 w-full sm:w-[45%] md:w-[87%] ">
         <figure>
         <img src="${plant.image}" alt="${plant.name}" class="w-full h-48 object-cover" />
         </figure>
   <div class="card-body">
     
     <h2 class="card-title">${plant.name}</h2>
-    <p class="small_description line-clamp-2"> ${plant.description}</p>
-    <p class="text-end mb-4 font-bold text-xl">${plant.price}</p>
+   <p class="small_description line-clamp-2 text-sm md:text-base"> ${plant.description}</p>
+   <div class="flex justify-evenly "> 
+    <p class="bg-green-200 w-7 rounded-xl mb-4 semibold text-xl text-left">${plant.name}</p>
+   <p class="text-end mb-4 font-bold text-xl">${plant.price}</p>
+      </div>
+     
      <div class="card-actions justify-center ">
-      <button class="btn btn-primary  w-[350px] h-[40px] rounded-[50px] p-3 btn-buy">Buy Now</button>
+      <button class="btn btn-primary  w-[150px] h-[40px] md:w-[350px] rounded-[50px] p-3 btn-buy">Buy Now</button>
     </div>
   </div>
 </div>
@@ -104,10 +108,11 @@ const displayBox = (plantss) => {
    if(buyBtn){
     buyBtn.addEventListener("click", () => {
       addToCart(plant);
+      alert("!buying");
     });
    }
 
-        midcontainer.append(btnDiv);
+      midcontainer.append(btnDiv);
    
    
       }
@@ -135,8 +140,16 @@ if(existing){
 };
 
 const updateCartDiv = () =>{
+
   const cartDiv = document.querySelector(".right_div");
-  cartDiv.innerHTML=`<h2 class="font-bold text-xl mt-2"`;
+  cartDiv.innerHTML=`<h2 class="font-bold text-xl mt-2"
+   <button id="clear-cart" class="bg-red-500 text-white px-2 py-1 rounded text-sm"><i class="fa-solid fa-xmark"></i></button> 
+  `;
+ cartDiv.querySelector("#clear-cart").addEventListener("click", () => {
+  cart =[];
+  updateCartDiv();
+ });
+
   let total = 0;
   cart.forEach(item => {
     total += (item.price) * item.quantity;
